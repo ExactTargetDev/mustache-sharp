@@ -452,6 +452,82 @@ Content";
             Assert.AreEqual(String.Empty, context[0].TagName, "The top-most context had the wrong tag type.");
         }
 
+        /// <summary>
+        /// If a key refers to a public field, its value should be substituted in the output.
+        /// </summary>
+        [TestMethod]
+        public void TestGenerate_KeyRefersToPublicField_SubstitutesValue()
+        {
+            FormatCompiler compiler = new FormatCompiler();
+            const string format = @"Hello, {{Field}}!!!";
+            Generator generator = compiler.Compile(format);
+            ClassWithPublicField instance = new ClassWithPublicField() { Field = "Bob" };
+            string result = generator.Render(instance);
+            Assert.AreEqual("Hello, Bob!!!", result, "The wrong text was generated.");
+        }
+
+        public class ClassWithPublicField
+        {
+            public string Field;
+        }
+
+        /// <summary>
+        /// If a derived class replaces a property/field in the base class (via new)
+        /// it should be used, instead of causing an exception or using the base's
+        /// property/field.
+        /// </summary>
+        [TestMethod]
+        public void TestGenerate_NewPropertyInDerivedClass_UsesDerivedProperty()
+        {
+            FormatCompiler compiler = new FormatCompiler();
+            const string format = @"Hello, {{Value}}!!!";
+            Generator generator = compiler.Compile(format);
+            DerivedClass instance = new DerivedClass() { Value = "Derived" };
+            string result = generator.Render(instance);
+            Assert.AreEqual("Hello, Derived!!!", result, "The wrong text was generated.");
+        }
+
+        public class BaseClass
+        {
+            public int Value { get; set; }
+        }
+
+        public class DerivedClass : BaseClass
+        {
+            public DerivedClass()
+            {
+                base.Value = 1;
+            }
+
+            public new string Value { get; set; }
+        }
+
+        /// <summary>
+        /// If a derived class replaces a property/field in the base class (via new)
+        /// it should be used, instead of causing an exception or using the base's
+        /// property/field.
+        /// </summary>
+        [TestMethod]
+        public void TestGenerate_NewPropertyInGenericDerivedClass_UsesDerivedProperty()
+        {
+            FormatCompiler compiler = new FormatCompiler();
+            const string format = @"Hello, {{Value}}!!!";
+            Generator generator = compiler.Compile(format);
+            DerivedClass<string> instance = new DerivedClass<string>() { Value = "Derived" };
+            string result = generator.Render(instance);
+            Assert.AreEqual("Hello, Derived!!!", result, "The wrong text was generated.");
+        }
+
+        public class DerivedClass<T> : BaseClass
+        {
+            public DerivedClass()
+            {
+                base.Value = 1;
+            }
+
+            public new T Value { get; set; }
+        }
+
         #endregion
 
         #region Comment
