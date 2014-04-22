@@ -318,7 +318,7 @@ namespace Mustache
                 string value = null;
                 if (pair.Capture != null)
                 {
-                    value = pair.Capture.Value;                    
+                    value = pair.Capture.Value.Replace("\"", String.Empty); // Remove quotes from placeholder
                 }
                 else if (pair.Parameter.IsRequired)
                 {

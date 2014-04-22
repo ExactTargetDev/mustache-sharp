@@ -1364,5 +1364,29 @@ Odd
         }
 
         #endregion
+
+        #region Special placeholders
+
+        [TestMethod]
+        public void TestCompile_SpecialCharacters()
+        {
+            FormatCompiler compiler = new FormatCompiler();
+            const string format = @"Hello {{Customer.""First Name""}}, you ordered 
+{{#with ""Order Info""}}
+{{Name}}
+{{/with}}";
+            Generator generator = compiler.Compile(format);
+            var obj = new Dictionary<string, object>();
+            obj["Customer"] = new Dictionary<string, object>();
+            ((Dictionary<string,object>)obj["Customer"])["First Name"] = "Bob";
+
+            obj["Order Info"] = new Dictionary<string, object>();
+            ((Dictionary<string,object>)obj["Order Info"])["Name"] = "Banana";
+            string result = generator.Render(obj);
+            const string expected = "Hello Bob, you ordered Banana";
+            Assert.AreEqual(expected, result, "The wrong text was generated.");
+        }
+
+        #endregion
     }
 }
