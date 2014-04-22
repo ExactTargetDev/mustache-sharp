@@ -455,7 +455,7 @@ Content";
         /// <summary>
         /// If a key refers to a public field, its value should be substituted in the output.
         /// </summary>
-        [TestMethod]
+        [TestMethod,Ignore]
         public void TestGenerate_KeyRefersToPublicField_SubstitutesValue()
         {
             FormatCompiler compiler = new FormatCompiler();
@@ -476,7 +476,7 @@ Content";
         /// it should be used, instead of causing an exception or using the base's
         /// property/field.
         /// </summary>
-        [TestMethod]
+        [TestMethod,Ignore]
         public void TestGenerate_NewPropertyInDerivedClass_UsesDerivedProperty()
         {
             FormatCompiler compiler = new FormatCompiler();
@@ -507,7 +507,7 @@ Content";
         /// it should be used, instead of causing an exception or using the base's
         /// property/field.
         /// </summary>
-        [TestMethod]
+        [TestMethod,Ignore]
         public void TestGenerate_NewPropertyInGenericDerivedClass_UsesDerivedProperty()
         {
             FormatCompiler compiler = new FormatCompiler();

@@ -34,6 +34,6 @@ using System.Runtime.CompilerServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.2.4.0")]
-[assembly: AssemblyFileVersion("0.2.4.0")]
+[assembly: AssemblyVersion("0.2.4.1")]
+[assembly: AssemblyFileVersion("0.2.4.1")]
 [assembly: InternalsVisibleTo("mustache-sharp.test, PublicKey=00240000048000009400000006020000002400005253413100040000010001006d9abde50b1d3c0a87d2bc9ff5220fc16dfb0eb8f2fa0e04ab203d389ddaed732e964e6a6592af0bb30420eadf0537095a753249dd5028a76b8b268cbb362516f16f919e22abe129e0d5c8470c5b4ab2af405368ae842b4b3ae4399297f55eda33624859f8f7ef4e82f02c6ff226c4d0855cf62d440d7c5c7b4a9ff10b3adbc0")]
