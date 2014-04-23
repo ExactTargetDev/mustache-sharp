@@ -31,7 +31,6 @@ namespace Mustache
                 _key = key;
                 _isVariable = false;
             }
-            _key = key.Replace("\"", String.Empty);
             _format = getFormat(alignment, formatting);
         }
 

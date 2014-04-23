@@ -200,7 +200,7 @@ namespace Mustache
                 {
                     generator.AddGenerator(new StaticGenerator(leading));
                     formatIndex = match.Index + match.Length;
-                    string key = match.Groups["key"].Value;
+                    string key = match.Groups["key"].Value.Replace("\"", String.Empty);
                     string alignment = match.Groups["alignment"].Value;
                     string formatting = match.Groups["format"].Value;
                     if (key.StartsWith("@"))
