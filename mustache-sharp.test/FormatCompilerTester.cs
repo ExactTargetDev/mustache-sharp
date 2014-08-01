@@ -1387,6 +1387,21 @@ Odd
             Assert.AreEqual(expected, result, "The wrong text was generated.");
         }
 
+        [TestMethod]
+        public void TestCompile_SpecialCharactersEscaped()
+        {
+            FormatCompiler compiler = new FormatCompiler();
+            const string format = @"{""firstName"" : ""{{Customer.\""First Name\""}}""}";
+            Generator generator = compiler.Compile(format);
+            var obj = new Dictionary<string, object>();
+            obj["Customer"] = new Dictionary<string, object>();
+            ((Dictionary<string, object>)obj["Customer"])["First Name"] = "Bob";
+            
+            string result = generator.Render(obj);
+            const string expected = @"{""firstName"" : ""Bob""}";
+            Assert.AreEqual(expected, result, "The wrong text was generated.");
+        }
+
         #endregion
     }
 }
